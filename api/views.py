@@ -45,7 +45,7 @@ def getRoutes(request):
 
 @api_view(['GET'])
 def getNotes(request):
-    notes = Note.objects.all()
+    notes = Note.objects.all().order_by('-updated')
     serializer = NoteSerializer(notes, many=True)
     return Response(serializer.data)
 
@@ -76,4 +76,4 @@ def createNote(request):
 def deleteNote(request, pk):
     note = Note.objects.filter(id=pk)
     note.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response('Note was Deleted')
